@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Máy Tính Cơ Bản</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <h1>Máy Tính Cơ Bản</h1>
+    <div class="container">
+      <form id="calculator-form">
+        <label for="number1">Số thứ 1:</label>
+        <input type="number" id="number1" required /><br />
+
+        <label for="number2">Số thứ 2:</label>
+        <input type="number" id="number2" required /><br />
+      </form>
+      <form>
+        <input type="radio" name="operation" value="add" checked /> Cộng
+        <input type="radio" name="operation" value="subtract" /> Trừ <br />
+        <input type="radio" name="operation" value="multiply" /> Nhân
+        <input type="radio" name="operation" value="divide" /> Chia<br />
+      </form>
+    </div>
+    <button type="button" onclick="calculate()">Tính toán</button>
+    <h3 id="result">Kết quả:</h3>
+    <h3 id="notice">Thông báo:</h3>
+    <script>
+      function calculate() {
+        const number1 = parseFloat(document.getElementById("number1").value);
+        const number2 = parseFloat(document.getElementById("number2").value);
+        const operation = document.querySelector(
+          'input[name="operation"]:checked'
+        ).value;
+
+        if (isNaN(number1) && isNaN(number2)) {
+          document.getElementById("notice").textContent =
+            "Thông báo: Số thứ 1 và Số thứ 2 không được bỏ trống";
+          return;
+        } else if (isNaN(number1)) {
+          document.getElementById("notice").textContent =
+            "Thông báo: Số thứ 1 không được bỏ trống";
+          return;
+        } else if (isNaN(number2)) {
+          document.getElementById("notice").textContent =
+            "Thông báo: Số thứ 2 không được bỏ trống";
+          return;
+        }
+        let result;
+
+        switch (operation) {
+          case "add":
+            result = number1 + number2;
+            break;
+          case "subtract":
+            result = number1 - number2;
+            break;
+          case "multiply":
+            result = number1 * number2;
+            break;
+          case "divide":
+            if (number2 !== 0) {
+              result = number1 / number2;
+            } else {
+              document.getElementById("notice").textContent =
+                "Thông báo: Không thể chia cho 0";
+            }
+            break;
+        }
+
+        document.getElementById("result").textContent = "Kết quả: " + result;
+      }
+    </script>
+  </body>
+</html>
